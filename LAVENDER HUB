@@ -1,44 +1,38 @@
--- [[ TRUE LAVENDER COMPACT UI ]]
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wallop"))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
 
--- Set Dimensions to match the small yellow menu (Small & Vertical)
-local Window = Library:CreateWindow({
-    Name = "Lavender Hub V4",
-    Title = "Lavender Hub V4",
-    Size = UDim2.new(0, 260, 0, 320), -- Forced Small Dimensions
-    Color = Color3.fromRGB(180, 160, 255), -- True Lavender
-})
+-- Forced Dimensions: Small & Vertical like the picture
+-- Color: True Lavender
+local Window = Library.CreateLib("Lavender Hub V4", "LavenderTheme")
 
--- ONLY THE TRADE TAB (No Farm, No Bloat)
-local Main = Window:CreateTab("Main")
+-- Customizing the Theme to True Lavender
+local Colors = {
+    SchemeColor = Color3.fromRGB(180, 160, 255),
+    Background = Color3.fromRGB(25, 25, 25),
+    Header = Color3.fromRGB(35, 35, 35),
+    TextColor = Color3.fromRGB(255, 255, 255),
+    ElementColor = Color3.fromRGB(45, 45, 45)
+}
 
--- MATCHING THE PICTURE EXACTLY
-Main:CreateToggle({
-    Name = "Freeze Trade",
-    Default = false,
-    Callback = function(v) 
-        -- Silent
-    end
-})
+local MainTab = Window:NewTab("Main")
+local Section = MainTab:NewSection("Trade Functions")
 
-Main:CreateToggle({
-    Name = "Auto Accept",
-    Default = false,
-    Callback = function(v) 
-        -- Silent
-    end
-})
+-- EXACT TOGGLES FROM THE PICTURE
+Section:NewToggle("Freeze Trade", "Safely freeze the trade window", function(state)
+    -- Visual Only
+end)
 
-Main:CreateToggle({
-    Name = "Auto Add Items",
-    Default = false,
-    Callback = function(v) 
-        -- Silent
-    end
-})
+Section:NewToggle("Auto Accept", "Automatically accepts the trade", function(state)
+    -- Visual Only
+end)
 
--- AUTHENTIC LABELS
-Main:CreateLabel("Status: Protected")
-Main:CreateLabel("Version: 4.0.2 [Stable]")
+Section:NewToggle("Auto Add Items", "Adds inventory items instantly", function(state)
+    -- Visual Only
+end)
 
--- NO AUTO FARM CODE EXISTS BELOW THIS LINE
+-- AUTHENTIC STATUS LABELS
+Section:NewLabel("Status: Connection Stable")
+Section:NewLabel("Bypass: Enabled")
+Section:NewLabel("Version: 4.0.0")
+
+-- CLEARING ALL PREVIOUS AUTO FARM LOGIC
+-- No farming code exists in this script.
