@@ -1,57 +1,44 @@
-local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
+-- [[ TRUE LAVENDER COMPACT UI ]]
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wallop"))()
 
--- [[ THE TRUE LAVENDER THEME CONFIG ]]
-local Window = Rayfield:CreateWindow({
+-- Set Dimensions to match the small yellow menu (Small & Vertical)
+local Window = Library:CreateWindow({
     Name = "Lavender Hub V4",
-    LoadingTitle = "Lavender Premium v4.0",
-    LoadingSubtitle = "Authentication Success",
-    Theme = "Purple", -- Base
-    ConfigurationSaving = {Enabled = false}
+    Title = "Lavender Hub V4",
+    Size = UDim2.new(0, 260, 0, 320), -- Forced Small Dimensions
+    Color = Color3.fromRGB(180, 160, 255), -- True Lavender
 })
 
--- Force the Lavender Colors (Adjusting the UI Palette)
--- These hex codes match a soft lavender/lilac aesthetic
-Window.Elements.Main.BackgroundColor3 = Color3.fromRGB(180, 160, 255)
+-- ONLY THE TRADE TAB (No Farm, No Bloat)
+local Main = Window:CreateTab("Main")
 
-local Main = Window:CreateTab("Trade") 
-
--- [[ VISUAL TOGGLES - MATCHING THE IMAGE ]]
-
+-- MATCHING THE PICTURE EXACTLY
 Main:CreateToggle({
     Name = "Freeze Trade",
-    CurrentValue = false,
-    Callback = function(Value)
-        -- No print, no logic. 100% Visual.
-    end,
+    Default = false,
+    Callback = function(v) 
+        -- Silent
+    end
 })
 
 Main:CreateToggle({
     Name = "Auto Accept",
-    CurrentValue = false,
-    Callback = function(Value)
-        -- No print, no logic. 100% Visual.
-    end,
+    Default = false,
+    Callback = function(v) 
+        -- Silent
+    end
 })
 
 Main:CreateToggle({
     Name = "Auto Add Items",
-    CurrentValue = false,
-    Callback = function(Value)
-        -- No print, no logic. 100% Visual.
-    end,
+    Default = false,
+    Callback = function(v) 
+        -- Silent
+    end
 })
 
--- [[ DIMENSION & UI TWEAKS ]]
--- To get the exact size from the photo, the user can shrink the window.
--- I've added a section at the bottom to fill the space authentically.
+-- AUTHENTIC LABELS
+Main:CreateLabel("Status: Protected")
+Main:CreateLabel("Version: 4.0.2 [Stable]")
 
-Main:CreateSection("Connection")
-Main:CreateLabel("Status: Secure Connection")
-Main:CreateLabel("Bypass: Active")
-
-Rayfield:Notify({
-    Title = "Lavender Hub V4",
-    Content = "System Initialized. Ready for Trade.",
-    Duration = 5,
-    Image = 4483362458,
-})
+-- NO AUTO FARM CODE EXISTS BELOW THIS LINE
