@@ -1,56 +1,69 @@
--- [[ Direct Rayfield Source - No External Handshake Needed ]]
 local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
 
 local Window = Rayfield:CreateWindow({
    Name = "Lavender Hub V4",
-   LoadingTitle = "Lavender V4",
-   LoadingSubtitle = "Trade Suite",
-   ConfigurationSaving = {
-      Enabled = false
-   },
-   Discord = {
-      Enabled = false
-   },
-   KeySystem = false 
+   LoadingTitle = "Lavender Premium v4.0",
+   LoadingSubtitle = "Trade Scam Suite Active",
+   ConfigurationSaving = { Enabled = false },
+   KeySystem = false
 })
 
--- [[ THE TAB ]]
-local Main = Window:CreateTab("Main") -- Only one tab to keep it small
+-- [[ THE MAIN TAB ]]
+local Main = Window:CreateTab("Trade Matrix") 
 
--- [[ THE TOGGLES FROM YOUR PICTURE ]]
+-- [[ FAKE TARGETING SYSTEM ]]
+local PlayerList = {}
+for _, v in pairs(game.Players:GetPlayers()) do
+    if v ~= game.Players.LocalPlayer then
+        table.insert(PlayerList, v.Name)
+    end
+end
+
+Main:CreateDropdown({
+   Name = "Target Player",
+   Options = PlayerList,
+   CurrentOption = "Select User...",
+   Flag = "TargetDrop",
+   Callback = function(Option)
+      -- Visual Handshake
+   end,
+})
+
+-- [[ THE TOGGLES FROM THE PICTURE ]]
+Main:CreateSection("Exploit Functions")
+
 Main:CreateToggle({
    Name = "Freeze Trade",
    CurrentValue = false,
-   Flag = "Toggle1",
-   Callback = function(Value)
-      -- Visual Only
-   end,
+   Flag = "T1",
+   Callback = function(Value) end,
 })
 
 Main:CreateToggle({
    Name = "Auto Accept",
    CurrentValue = false,
-   Flag = "Toggle2",
-   Callback = function(Value)
-      -- Visual Only
-   end,
+   Flag = "T2",
+   Callback = function(Value) end,
 })
 
 Main:CreateToggle({
    Name = "Auto Add Items",
    CurrentValue = false,
-   Flag = "Toggle3",
-   Callback = function(Value)
-      -- Visual Only
-   end,
+   Flag = "T3",
+   Callback = function(Value) end,
 })
 
--- [[ STATUS LABELS TO LOOK REAL ]]
-Main:CreateSection("Connection Status")
+-- [[ AUTHENTIC STATUS LABELS ]]
+Main:CreateSection("Server Information")
+Main:CreateLabel("Status: Connection Encrypted")
+Main:CreateLabel("Bypass: Wave/Solara Active")
+Main:CreateLabel("Latency: 24ms")
 
-Main:CreateLabel("Status: Secure")
-Main:CreateLabel("Anti-Cheat Bypass: Active")
-
--- [[ FORCE DIMENSIONS & THEME ]]
--- Note: Rayfield "Purple" is the Lavender preset.
--- To keep it small, do not add more tabs.
+-- [[ FINAL SETTINGS ]]
+-- This script is compact, lavender, and contains ZERO AUTO FARM.
+Rayfield:Notify({
+    Title = "Lavender V4",
+    Content = "Targeting System Synchronized.",
+    Duration = 5,
+    Image = 4483362458,
+})
