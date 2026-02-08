@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
 -- [[ AUTHENTIC LAVENDER HUB V4 ]]
 local Window = Rayfield:CreateWindow({
     Name = "Lavender Hub V4", 
-    LoadingTitle = "Lavender Premium Suite",
+    LoadingTitle = "Lavender HUB TRADE SCAM",
     LoadingSubtitle = "Hardware ID Verified",
     Theme = "Purple", 
     ConfigurationSaving = {Enabled = false}
