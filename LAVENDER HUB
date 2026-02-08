@@ -1,28 +1,22 @@
--- [[ LAVENDER HUB V4 - ZERO LIBRARY VERSION ]]
-local ScreenGui = Instance.new("ScreenGui")
-local MainFrame = Instance.new("Frame")
-local Title = Instance.new("TextLabel")
-local Holder = Instance.new("ScrollingFrame")
-local UIListLayout = Instance.new("UIListLayout")
+-- [[ LAVENDER HUB V4 - ULTRA SLIM ]]
+if game.CoreGui:FindFirstChild("LavenderHub") then
+    game.CoreGui.LavenderHub:Destroy()
+end
 
--- Setup GUI
-ScreenGui.Parent = game.CoreGui
-ScreenGui.Name = "LavenderV4"
+local ScreenGui = Instance.new("ScreenGui", game.CoreGui)
+ScreenGui.Name = "LavenderHub"
 
--- Small Vertical Frame (Exact dimensions from photo)
-MainFrame.Name = "MainFrame"
-MainFrame.Parent = ScreenGui
-MainFrame.BackgroundColor3 = Color3.fromRGB(180, 160, 255) -- TRUE LAVENDER
-MainFrame.Position = UDim2.new(0.5, -100, 0.5, -150)
-MainFrame.Size = UDim2.new(0, 200, 0, 300) -- Small & Vertical
-MainFrame.Active = true
-MainFrame.Draggable = true
+-- THE MAIN FRAME (Height reduced to 220)
+local Main = Instance.new("Frame", ScreenGui)
+Main.BackgroundColor3 = Color3.fromRGB(180, 160, 255) -- True Lavender
+Main.Position = UDim2.new(0.5, -190, 0.5, -110)
+Main.Size = UDim2.new(0, 380, 0, 220) 
+Main.Active = true
+Main.Draggable = true
+Instance.new("UICorner", Main).CornerRadius = UDim.new(0, 10)
 
-local Corner = Instance.new("UICorner")
-Corner.CornerRadius = UDim.new(0, 10)
-Corner.Parent = MainFrame
-
-Title.Parent = MainFrame
+-- HEADER TITLE (Slimmer Header)
+local Title = Instance.new("TextLabel", Main)
 Title.Size = UDim2.new(1, 0, 0, 40)
 Title.BackgroundTransparency = 1
 Title.Text = "Lavender Hub V4"
@@ -30,58 +24,89 @@ Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 Title.Font = Enum.Font.GothamBold
 Title.TextSize = 16
 
-Holder.Parent = MainFrame
-Holder.Position = UDim2.new(0, 10, 0, 50)
-Holder.Size = UDim2.new(1, -20, 1, -60)
-Holder.BackgroundTransparency = 1
-Holder.ScrollBarTransparency = 1
+-- TARGET DISPLAY BOX (Compact)
+local Target = Instance.new("TextLabel", Main)
+Target.Position = UDim2.new(0, 20, 0, 40)
+Target.Size = UDim2.new(1, -40, 0, 22)
+Target.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Target.BackgroundTransparency = 0.88
+Target.Text = "Target: Scanning Players..."
+Target.TextColor3 = Color3.fromRGB(255, 255, 255)
+Target.Font = Enum.Font.GothamMedium
+Target.TextSize = 11
+Instance.new("UICorner", Target).CornerRadius = UDim.new(0, 4)
 
-UIListLayout.Parent = Holder
-UIListLayout.Padding = UDim.new(0, 8)
+-- TOGGLE CONTAINER (Zero Padding)
+local Container = Instance.new("Frame", Main)
+Container.Position = UDim2.new(0, 0, 0, 70)
+Container.Size = UDim2.new(1, 0, 1, -85)
+Container.BackgroundTransparency = 1
+local List = Instance.new("UIListLayout", Container)
+List.HorizontalAlignment = Enum.HorizontalAlignment.Center
+List.Padding = UDim.new(0, 5) -- Minimal spacing
 
--- Fake Player Dropdown (Visual Only)
-local Dropdown = Instance.new("TextButton")
-Dropdown.Parent = Holder
-Dropdown.Size = UDim2.new(1, 0, 0, 35)
-Dropdown.BackgroundColor3 = Color3.fromRGB(160, 140, 240)
-Dropdown.Text = "Target: Select User..."
-Dropdown.TextColor3 = Color3.fromRGB(255, 255, 255)
-Dropdown.Font = Enum.Font.GothamSemibold
-Dropdown.TextSize = 12
+-- AUTO-PLAYER FINDER
+task.spawn(function()
+    local players = game.Players:GetPlayers()
+    task.wait(0.8)
+    for _, p in pairs(players) do
+        if p ~= game.Players.LocalPlayer then
+            Target.Text = "Target Locked: " .. p.Name
+            break
+        end
+    end
+end)
 
-local function CreateToggle(name)
-    local Button = Instance.new("TextButton")
-    local state = false
-    
-    Button.Parent = Holder
-    Button.Size = UDim2.new(1, 0, 0, 40)
-    Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Button.BackgroundTransparency = 0.8
-    Button.Text = name .. ": OFF"
-    Button.TextColor3 = Color3.fromRGB(255, 255, 255)
-    Button.Font = Enum.Font.Gotham
-    Button.TextSize = 13
-    
-    local BCorner = Instance.new("UICorner")
-    BCorner.CornerRadius = UDim.new(0, 6)
-    BCorner.Parent = Button
-    
-    Button.MouseButton1Click:Connect(function()
-        state = not state
-        Button.Text = name .. (state and ": ON" or ": OFF")
-        Button.BackgroundColor3 = state and Color3.fromRGB(100, 255, 100) or Color3.fromRGB(255, 255, 255)
-        Button.BackgroundTransparency = state and 0.5 or 0.8
+-- CUSTOM SLIDING TOGGLE (Ultra Slim)
+local function CreateToggle(text)
+    local Frame = Instance.new("Frame", Container)
+    Frame.Size = UDim2.new(0, 350, 0, 38) -- Slimmer row height
+    Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Frame.BackgroundTransparency = 0.94
+    Instance.new("UICorner", Frame)
+
+    local Label = Instance.new("TextLabel", Frame)
+    Label.Size = UDim2.new(1, -70, 1, 0)
+    Label.Position = UDim2.new(0, 15, 0, 0)
+    Label.BackgroundTransparency = 1
+    Label.Text = text
+    Label.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Label.Font = Enum.Font.GothamSemibold
+    Label.TextSize = 13
+    Label.TextXAlignment = Enum.TextXAlignment.Left
+
+    local SwitchBG = Instance.new("TextButton", Frame)
+    SwitchBG.Position = UDim2.new(1, -50, 0.5, -9)
+    SwitchBG.Size = UDim2.new(0, 36, 0, 18)
+    SwitchBG.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+    SwitchBG.Text = ""
+    Instance.new("UICorner", SwitchBG).CornerRadius = UDim.new(1, 0)
+
+    local Circle = Instance.new("Frame", SwitchBG)
+    Circle.Position = UDim2.new(0, 2, 0.5, -7)
+    Circle.Size = UDim2.new(0, 14, 0, 14)
+    Circle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Instance.new("UICorner", Circle).CornerRadius = UDim.new(1, 0)
+
+    local active = false
+    SwitchBG.MouseButton1Click:Connect(function()
+        active = not active
+        Circle:TweenPosition(active and UDim2.new(0, 20, 0.5, -7) or UDim2.new(0, 2, 0.5, -7), "Out", "Quad", 0.1)
+        SwitchBG.BackgroundColor3 = active and Color3.fromRGB(130, 255, 130) or Color3.fromRGB(60, 60, 60)
     end)
 end
 
--- Toggles (Matching the Picture)
+-- THE 3 TOGGLES
 CreateToggle("Freeze Trade")
 CreateToggle("Auto Accept")
 CreateToggle("Auto Add Items")
 
--- Labels (Final Authenticity)
-local L1 = Instance.new("TextLabel", Holder)
-L1.Size = UDim2.new(1, 0, 0, 20); L1.BackgroundTransparency = 1
-L1.Text = "Status: Encrypted"; L1.TextColor3 = Color3.fromRGB(255, 255, 255); L1.TextSize = 11
-
--- NO AUTO FARM CODE IN THIS SCRIPT
+-- FAKE STATUS (Hidden in corner)
+local Stat = Instance.new("TextLabel", Main)
+Stat.Position = UDim2.new(0, 0, 1, -15)
+Stat.Size = UDim2.new(1, 0, 0, 12)
+Stat.BackgroundTransparency = 1
+Stat.Text = "v4.0.2 Stable"
+Stat.TextColor3 = Color3.fromRGB(255, 255, 255)
+Stat.TextTransparency = 0.8
+Stat.TextSize = 8
