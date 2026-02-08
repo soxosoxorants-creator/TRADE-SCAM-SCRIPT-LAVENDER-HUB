@@ -1,38 +1,107 @@
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+-- [[ PURE UI - NO EXTERNAL LIBRARY NEEDED ]]
+local ScreenGui = Instance.new("ScreenGui")
+local MainFrame = Instance.new("Frame")
+local Title = Instance.new("TextLabel")
+local ToggleContainer = Instance.new("ScrollingFrame")
+local UIListLayout = Instance.new("UIListLayout")
 
--- Forced Dimensions: Small & Vertical like the picture
--- Color: True Lavender
-local Window = Library.CreateLib("Lavender Hub V4", "LavenderTheme")
+-- Properties
+ScreenGui.Parent = game.CoreGui
+ScreenGui.Name = "LavenderHubV4"
 
--- Customizing the Theme to True Lavender
-local Colors = {
-    SchemeColor = Color3.fromRGB(180, 160, 255),
-    Background = Color3.fromRGB(25, 25, 25),
-    Header = Color3.fromRGB(35, 35, 35),
-    TextColor = Color3.fromRGB(255, 255, 255),
-    ElementColor = Color3.fromRGB(45, 45, 45)
-}
+MainFrame.Name = "MainFrame"
+MainFrame.Parent = ScreenGui
+MainFrame.BackgroundColor3 = Color3.fromRGB(180, 160, 255) -- TRUE LAVENDER
+MainFrame.BorderSizePixel = 0
+MainFrame.Position = UDim2.new(0.5, -110, 0.5, -150)
+MainFrame.Size = UDim2.new(0, 220, 0, 300) -- EXACT COMPACT DIMENSIONS
+MainFrame.Active = true
+MainFrame.Draggable = true
 
-local MainTab = Window:NewTab("Main")
-local Section = MainTab:NewSection("Trade Functions")
+-- Rounded Corners
+local Corner = Instance.new("UICorner")
+Corner.CornerRadius = UDim.new(0, 10)
+Corner.Parent = MainFrame
 
--- EXACT TOGGLES FROM THE PICTURE
-Section:NewToggle("Freeze Trade", "Safely freeze the trade window", function(state)
-    -- Visual Only
-end)
+Title.Name = "Title"
+Title.Parent = MainFrame
+Title.BackgroundTransparency = 1
+Title.Size = UDim2.new(1, 0, 0, 40)
+Title.Font = Enum.Font.GothamBold
+Title.Text = "Lavender Hub V4"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.TextSize = 18
 
-Section:NewToggle("Auto Accept", "Automatically accepts the trade", function(state)
-    -- Visual Only
-end)
+ToggleContainer.Parent = MainFrame
+ToggleContainer.BackgroundTransparency = 1
+ToggleContainer.Position = UDim2.new(0, 10, 0, 50)
+ToggleContainer.Size = UDim2.new(1, -20, 1, -60)
+ToggleContainer.ScrollBarTransparency = 1
 
-Section:NewToggle("Auto Add Items", "Adds inventory items instantly", function(state)
-    -- Visual Only
-end)
+UIListLayout.Parent = ToggleContainer
+UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+UIListLayout.Padding = UDim.new(0, 10)
 
--- AUTHENTIC STATUS LABELS
-Section:NewLabel("Status: Connection Stable")
-Section:NewLabel("Bypass: Enabled")
-Section:NewLabel("Version: 4.0.0")
+-- Function to create authentic toggles
+local function CreateToggle(name)
+    local Button = Instance.new("TextButton")
+    local StatusBox = Instance.new("Frame")
+    local StatusCircle = Instance.new("Frame")
+    local state = false
 
--- CLEARING ALL PREVIOUS AUTO FARM LOGIC
--- No farming code exists in this script.
+    Button.Name = name
+    Button.Parent = ToggleContainer
+    Button.BackgroundColor3 = Color3.fromRGB(150, 130, 230)
+    Button.Size = UDim2.new(1, 0, 0, 45)
+    Button.Font = Enum.Font.GothamSemibold
+    Button.Text = "  " .. name
+    Button.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Button.TextSize = 14
+    Button.TextXAlignment = Enum.TextXAlignment.Left
+
+    local BCorner = Instance.new("UICorner")
+    BCorner.CornerRadius = UDim.new(0, 8)
+    BCorner.Parent = Button
+
+    StatusBox.Name = "StatusBox"
+    StatusBox.Parent = Button
+    StatusBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    StatusBox.Position = UDim2.new(1, -45, 0.5, -10)
+    StatusBox.Size = UDim2.new(0, 35, 0, 20)
+    
+    local SCorner = Instance.new("UICorner")
+    SCorner.CornerRadius = UDim.new(1, 0)
+    SCorner.Parent = StatusBox
+
+    StatusCircle.Name = "Circle"
+    StatusCircle.Parent = StatusBox
+    StatusCircle.BackgroundColor3 = Color3.fromRGB(200, 200, 200)
+    StatusCircle.Position = UDim2.new(0, 2, 0.5, -8)
+    StatusCircle.Size = UDim2.new(0, 16, 0, 16)
+
+    local CCorner = Instance.new("UICorner")
+    CCorner.CornerRadius = UDim.new(1, 0)
+    CCorner.Parent = StatusCircle
+
+    Button.MouseButton1Click:Connect(function()
+        state = not state
+        StatusCircle:TweenPosition(state and UDim2.new(0, 17, 0.5, -8) or UDim2.new(0, 2, 0.5, -8), "Out", "Quad", 0.2)
+        StatusBox.BackgroundColor3 = state and Color3.fromRGB(100, 255, 100) or Color3.fromRGB(255, 255, 255)
+    end)
+end
+
+-- Create the Exact Toggles from picture
+CreateToggle("Freeze Trade")
+CreateToggle("Auto Accept")
+CreateToggle("Auto Add Items")
+
+-- Add Status Labels
+local Label1 = Instance.new("TextLabel", ToggleContainer)
+Label1.Size = UDim2.new(1, 0, 0, 20)
+Label1.BackgroundTransparency = 1
+Label1.Text = "Status: Protected"
+Label1.TextColor3 = Color3.fromRGB(255, 255, 255)
+Label1.Font = Enum.Font.Gotham
+Label1.TextSize = 12
+
+-- NO AUTO FARM CODE IN THIS SCRIPT
