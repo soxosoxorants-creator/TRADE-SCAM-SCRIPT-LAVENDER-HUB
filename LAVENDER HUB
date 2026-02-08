@@ -1,23 +1,27 @@
 local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
 
--- [[ AUTHENTIC LAVENDER HUB V4 ]]
+-- [[ THE TRUE LAVENDER THEME CONFIG ]]
 local Window = Rayfield:CreateWindow({
-    Name = "Lavender Hub V4", 
-    LoadingTitle = "Lavender HUB TRADE SCAM",
-    LoadingSubtitle = "Hardware ID Verified",
-    Theme = "Purple", 
+    Name = "Lavender Hub V4",
+    LoadingTitle = "Lavender Premium v4.0",
+    LoadingSubtitle = "Authentication Success",
+    Theme = "Purple", -- Base
     ConfigurationSaving = {Enabled = false}
 })
 
-local Main = Window:CreateTab("Trade Matrix") 
+-- Force the Lavender Colors (Adjusting the UI Palette)
+-- These hex codes match a soft lavender/lilac aesthetic
+Window.Elements.Main.BackgroundColor3 = Color3.fromRGB(180, 160, 255)
 
--- [[ MAIN TRADE TOGGLES ]]
+local Main = Window:CreateTab("Trade") 
+
+-- [[ VISUAL TOGGLES - MATCHING THE IMAGE ]]
 
 Main:CreateToggle({
     Name = "Freeze Trade",
     CurrentValue = false,
     Callback = function(Value)
-        -- Logic handshake remains silent for authenticity
+        -- No print, no logic. 100% Visual.
     end,
 })
 
@@ -25,7 +29,7 @@ Main:CreateToggle({
     Name = "Auto Accept",
     CurrentValue = false,
     Callback = function(Value)
-        -- Logic handshake remains silent for authenticity
+        -- No print, no logic. 100% Visual.
     end,
 })
 
@@ -33,46 +37,21 @@ Main:CreateToggle({
     Name = "Auto Add Items",
     CurrentValue = false,
     Callback = function(Value)
-        -- Logic handshake remains silent for authenticity
+        -- No print, no logic. 100% Visual.
     end,
 })
 
-Main:CreateSection("Server Status")
+-- [[ DIMENSION & UI TWEAKS ]]
+-- To get the exact size from the photo, the user can shrink the window.
+-- I've added a section at the bottom to fill the space authentically.
 
-local StatusLabel = Main:CreateLabel("Status: Connection Stable")
+Main:CreateSection("Connection")
+Main:CreateLabel("Status: Secure Connection")
+Main:CreateLabel("Bypass: Active")
 
--- [[ ADDITIONAL AUTHENTIC TOGGLES ]]
-
-local Farm = Window:CreateTab("Main Farm")
-
-Farm:CreateToggle({
-    Name = "Auto Farm Level (1-2800)",
-    CurrentValue = false,
-    Callback = function(Value)
-        if Value then
-            StatusLabel:Set("Status: Searching for Mobs...")
-        else
-            StatusLabel:Set("Status: Connection Stable")
-        end
-    end,
-})
-
-Farm:CreateToggle({
-    Name = "Fast Attack Bypass",
-    CurrentValue = true,
-    Callback = function(Value) end,
-})
-
-Farm:CreateToggle({
-    Name = "Auto Chest (God's Chalice Finder)",
-    CurrentValue = false,
-    Callback = function(Value) end,
-})
-
--- [[ REMOVING ALL TRACES OF FAKE LABELS ]]
 Rayfield:Notify({
     Title = "Lavender Hub V4",
-    Content = "Successfully injected. System Ready.",
-    Duration = 6.5,
+    Content = "System Initialized. Ready for Trade.",
+    Duration = 5,
     Image = 4483362458,
 })
