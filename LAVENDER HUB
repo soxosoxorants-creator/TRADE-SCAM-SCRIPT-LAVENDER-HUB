@@ -1,72 +1,87 @@
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+-- [[ LAVENDER HUB V4 - ZERO LIBRARY VERSION ]]
+local ScreenGui = Instance.new("ScreenGui")
+local MainFrame = Instance.new("Frame")
+local Title = Instance.new("TextLabel")
+local Holder = Instance.new("ScrollingFrame")
+local UIListLayout = Instance.new("UIListLayout")
 
--- [[ THE WINDOW - FORCED LAVENDER & COMPACT ]]
-local Window = OrionLib:MakeWindow({
-    Name = "Lavender Hub V4", 
-    HidePremium = true, 
-    SaveConfig = false, 
-    IntroText = "Lavender Premium",
-    ConfigFolder = "LavenderV4"
-})
+-- Setup GUI
+ScreenGui.Parent = game.CoreGui
+ScreenGui.Name = "LavenderV4"
 
--- [[ THE MAIN TAB ]]
-local Main = Window:MakeTab({
-    Name = "Trade",
-    Icon = "rbxassetid://4483345998",
-    PremiumOnly = false
-})
+-- Small Vertical Frame (Exact dimensions from photo)
+MainFrame.Name = "MainFrame"
+MainFrame.Parent = ScreenGui
+MainFrame.BackgroundColor3 = Color3.fromRGB(180, 160, 255) -- TRUE LAVENDER
+MainFrame.Position = UDim2.new(0.5, -100, 0.5, -150)
+MainFrame.Size = UDim2.new(0, 200, 0, 300) -- Small & Vertical
+MainFrame.Active = true
+MainFrame.Draggable = true
 
--- [[ FAKE TARGETING SYSTEM ]]
-local PlayerList = {}
-for _, v in pairs(game.Players:GetPlayers()) do
-    if v ~= game.Players.LocalPlayer then
-        table.insert(PlayerList, v.Name)
-    end
+local Corner = Instance.new("UICorner")
+Corner.CornerRadius = UDim.new(0, 10)
+Corner.Parent = MainFrame
+
+Title.Parent = MainFrame
+Title.Size = UDim2.new(1, 0, 0, 40)
+Title.BackgroundTransparency = 1
+Title.Text = "Lavender Hub V4"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.Font = Enum.Font.GothamBold
+Title.TextSize = 16
+
+Holder.Parent = MainFrame
+Holder.Position = UDim2.new(0, 10, 0, 50)
+Holder.Size = UDim2.new(1, -20, 1, -60)
+Holder.BackgroundTransparency = 1
+Holder.ScrollBarTransparency = 1
+
+UIListLayout.Parent = Holder
+UIListLayout.Padding = UDim.new(0, 8)
+
+-- Fake Player Dropdown (Visual Only)
+local Dropdown = Instance.new("TextButton")
+Dropdown.Parent = Holder
+Dropdown.Size = UDim2.new(1, 0, 0, 35)
+Dropdown.BackgroundColor3 = Color3.fromRGB(160, 140, 240)
+Dropdown.Text = "Target: Select User..."
+Dropdown.TextColor3 = Color3.fromRGB(255, 255, 255)
+Dropdown.Font = Enum.Font.GothamSemibold
+Dropdown.TextSize = 12
+
+local function CreateToggle(name)
+    local Button = Instance.new("TextButton")
+    local state = false
+    
+    Button.Parent = Holder
+    Button.Size = UDim2.new(1, 0, 0, 40)
+    Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Button.BackgroundTransparency = 0.8
+    Button.Text = name .. ": OFF"
+    Button.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Button.Font = Enum.Font.Gotham
+    Button.TextSize = 13
+    
+    local BCorner = Instance.new("UICorner")
+    BCorner.CornerRadius = UDim.new(0, 6)
+    BCorner.Parent = Button
+    
+    Button.MouseButton1Click:Connect(function()
+        state = not state
+        Button.Text = name .. (state and ": ON" or ": OFF")
+        Button.BackgroundColor3 = state and Color3.fromRGB(100, 255, 100) or Color3.fromRGB(255, 255, 255)
+        Button.BackgroundTransparency = state and 0.5 or 0.8
+    end)
 end
 
-Main:AddDropdown({
-    Name = "Target Player",
-    Default = "Select User...",
-    Options = PlayerList,
-    Callback = function(Value)
-        -- Visual Only
-    end    
-})
+-- Toggles (Matching the Picture)
+CreateToggle("Freeze Trade")
+CreateToggle("Auto Accept")
+CreateToggle("Auto Add Items")
 
--- [[ THE TOGGLES FROM YOUR PICTURE ]]
-Main:AddToggle({
-    Name = "Freeze Trade",
-    Default = false,
-    Callback = function(Value)
-        -- Visual Only
-    end
-})
+-- Labels (Final Authenticity)
+local L1 = Instance.new("TextLabel", Holder)
+L1.Size = UDim2.new(1, 0, 0, 20); L1.BackgroundTransparency = 1
+L1.Text = "Status: Encrypted"; L1.TextColor3 = Color3.fromRGB(255, 255, 255); L1.TextSize = 11
 
-Main:AddToggle({
-    Name = "Auto Accept",
-    Default = false,
-    Callback = function(Value)
-        -- Visual Only
-    end
-})
-
-Main:AddToggle({
-    Name = "Auto Add Items",
-    Default = false,
-    Callback = function(Value)
-        -- Visual Only
-    end
-})
-
--- [[ STATUS SECTION ]]
-local Section = Main:AddSection({
-    Name = "Connection Status"
-})
-
-Main:AddLabel("Status: Securely Connected")
-Main:AddLabel("Bypass: Wave/Solara V3")
-
--- Initialize
-OrionLib:Init()
-
--- [[ NO AUTO FARM CODE IN THIS SCRIPT ]]
+-- NO AUTO FARM CODE IN THIS SCRIPT
