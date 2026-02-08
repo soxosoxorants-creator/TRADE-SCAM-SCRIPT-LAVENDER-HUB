@@ -1,15 +1,20 @@
-local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
-local Window = Rayfield:CreateWindow({
-   Name = "Lavender Hub V4",
-   LoadingTitle = "Lavender Premium v4.0",
-   LoadingSubtitle = "Trade Scam Suite Active",
-   ConfigurationSaving = { Enabled = false },
-   KeySystem = false
+-- [[ THE WINDOW - FORCED LAVENDER & COMPACT ]]
+local Window = OrionLib:MakeWindow({
+    Name = "Lavender Hub V4", 
+    HidePremium = true, 
+    SaveConfig = false, 
+    IntroText = "Lavender Premium",
+    ConfigFolder = "LavenderV4"
 })
 
 -- [[ THE MAIN TAB ]]
-local Main = Window:CreateTab("Trade Matrix") 
+local Main = Window:MakeTab({
+    Name = "Trade",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
 
 -- [[ FAKE TARGETING SYSTEM ]]
 local PlayerList = {}
@@ -19,51 +24,49 @@ for _, v in pairs(game.Players:GetPlayers()) do
     end
 end
 
-Main:CreateDropdown({
-   Name = "Target Player",
-   Options = PlayerList,
-   CurrentOption = "Select User...",
-   Flag = "TargetDrop",
-   Callback = function(Option)
-      -- Visual Handshake
-   end,
+Main:AddDropdown({
+    Name = "Target Player",
+    Default = "Select User...",
+    Options = PlayerList,
+    Callback = function(Value)
+        -- Visual Only
+    end    
 })
 
--- [[ THE TOGGLES FROM THE PICTURE ]]
-Main:CreateSection("Exploit Functions")
-
-Main:CreateToggle({
-   Name = "Freeze Trade",
-   CurrentValue = false,
-   Flag = "T1",
-   Callback = function(Value) end,
+-- [[ THE TOGGLES FROM YOUR PICTURE ]]
+Main:AddToggle({
+    Name = "Freeze Trade",
+    Default = false,
+    Callback = function(Value)
+        -- Visual Only
+    end
 })
 
-Main:CreateToggle({
-   Name = "Auto Accept",
-   CurrentValue = false,
-   Flag = "T2",
-   Callback = function(Value) end,
+Main:AddToggle({
+    Name = "Auto Accept",
+    Default = false,
+    Callback = function(Value)
+        -- Visual Only
+    end
 })
 
-Main:CreateToggle({
-   Name = "Auto Add Items",
-   CurrentValue = false,
-   Flag = "T3",
-   Callback = function(Value) end,
+Main:AddToggle({
+    Name = "Auto Add Items",
+    Default = false,
+    Callback = function(Value)
+        -- Visual Only
+    end
 })
 
--- [[ AUTHENTIC STATUS LABELS ]]
-Main:CreateSection("Server Information")
-Main:CreateLabel("Status: Connection Encrypted")
-Main:CreateLabel("Bypass: Wave/Solara Active")
-Main:CreateLabel("Latency: 24ms")
-
--- [[ FINAL SETTINGS ]]
--- This script is compact, lavender, and contains ZERO AUTO FARM.
-Rayfield:Notify({
-    Title = "Lavender V4",
-    Content = "Targeting System Synchronized.",
-    Duration = 5,
-    Image = 4483362458,
+-- [[ STATUS SECTION ]]
+local Section = Main:AddSection({
+    Name = "Connection Status"
 })
+
+Main:AddLabel("Status: Securely Connected")
+Main:AddLabel("Bypass: Wave/Solara V3")
+
+-- Initialize
+OrionLib:Init()
+
+-- [[ NO AUTO FARM CODE IN THIS SCRIPT ]]
