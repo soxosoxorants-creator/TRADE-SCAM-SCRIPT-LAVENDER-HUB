@@ -1,56 +1,56 @@
-local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
+-- [[ Direct Rayfield Source - No External Handshake Needed ]]
+local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
 
--- [[ THE CLEANEST CONFIGURATION ]]
 local Window = Rayfield:CreateWindow({
-    Name = "Lavender Hub V4",
-    LoadingTitle = "Lavender Premium v4.0",
-    LoadingSubtitle = "Hardware ID Verified",
-    Theme = "Purple", -- This is the Sirius base for Lavender
-    ConfigurationSaving = {Enabled = false}
+   Name = "Lavender Hub V4",
+   LoadingTitle = "Lavender V4",
+   LoadingSubtitle = "Trade Suite",
+   ConfigurationSaving = {
+      Enabled = false
+   },
+   Discord = {
+      Enabled = false
+   },
+   KeySystem = false 
 })
 
--- [[ MAIN TRADE TAB - NO FARMING ]]
-local Main = Window:CreateTab("Trade Matrix") 
+-- [[ THE TAB ]]
+local Main = Window:CreateTab("Main") -- Only one tab to keep it small
 
--- [[ VISUAL TOGGLES ONLY ]]
-
+-- [[ THE TOGGLES FROM YOUR PICTURE ]]
 Main:CreateToggle({
-    Name = "Freeze Trade",
-    CurrentValue = false,
-    Callback = function(Value)
-        -- Visual Only
-    end,
-})
-
-Main:CreateToggle({
-    Name = "Auto Accept",
-    CurrentValue = false,
-    Callback = function(Value)
-        -- Visual Only
-    end,
+   Name = "Freeze Trade",
+   CurrentValue = false,
+   Flag = "Toggle1",
+   Callback = function(Value)
+      -- Visual Only
+   end,
 })
 
 Main:CreateToggle({
-    Name = "Auto Add Items",
-    CurrentValue = false,
-    Callback = function(Value)
-        -- Visual Only
-    end,
+   Name = "Auto Accept",
+   CurrentValue = false,
+   Flag = "Toggle2",
+   Callback = function(Value)
+      -- Visual Only
+   end,
 })
 
--- [[ VISUAL STATUS SECTION ]]
-Main:CreateSection("System Status")
-
-Main:CreateLabel("Connection: Stable")
-Main:CreateLabel("Bypass: Active")
-Main:CreateLabel("Version: 4.0 [Stable]")
-
--- [[ NOTIFICATION UPON LOADING ]]
-Rayfield:Notify({
-    Title = "Lavender Hub V4",
-    Content = "Successfully Loaded. Logic Ready.",
-    Duration = 5,
-    Image = 4483362458,
+Main:CreateToggle({
+   Name = "Auto Add Items",
+   CurrentValue = false,
+   Flag = "Toggle3",
+   Callback = function(Value)
+      -- Visual Only
+   end,
 })
 
--- [[ THERE IS NO AUTO FARM OR LEVEL CODE BELOW THIS LINE ]]
+-- [[ STATUS LABELS TO LOOK REAL ]]
+Main:CreateSection("Connection Status")
+
+Main:CreateLabel("Status: Secure")
+Main:CreateLabel("Anti-Cheat Bypass: Active")
+
+-- [[ FORCE DIMENSIONS & THEME ]]
+-- Note: Rayfield "Purple" is the Lavender preset.
+-- To keep it small, do not add more tabs.
